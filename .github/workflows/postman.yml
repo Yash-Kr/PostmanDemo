@@ -40,20 +40,30 @@ jobs:
       - name: Install newman-reporter-html
         run: |
           npm install -g newman-reporter-html
+      - name: Checkout the main branch
+        uses: actions/checkout@v2
+      - name: Run Postman collection
+        run: |
+          newman run GoRestApi.postman_collection.json -r html --reporter-html-template mytemplate.hbs > index.html
+      - name: Commit and push the changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update index.html
+          push: true
   
-  update-file:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the main branch
-      uses: actions/checkout@v2
-    - name: Run Postman collection
-      run: |
-        newman run GoRestApi.postman_collection.json -r html --reporter-html-template mytemplate.hbs > index.html
-    - name: Commit and push the changes
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Update index.html
-        push: true
+#   update-file:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout the main branch
+#       uses: actions/checkout@v2
+#     - name: Run Postman collection
+#       run: |
+#         newman run GoRestApi.postman_collection.json -r html --reporter-html-template mytemplate.hbs > index.html
+#     - name: Commit and push the changes
+#       uses: stefanzweifel/git-auto-commit-action@v4
+#       with:
+#         commit_message: Update index.html
+#         push: true
         
         
   
