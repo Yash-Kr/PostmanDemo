@@ -39,7 +39,7 @@ jobs:
           npm install -g newman
       - name: Install newman-reporter-html
         run: |
-          npm install -g newman-reporter-html
+          npm install -g newman-reporter-html@latest --save-exact
       - name: Checkout the main branch
         uses: actions/checkout@v2
       - name: Run Postman collection
