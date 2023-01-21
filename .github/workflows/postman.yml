@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Postman collection
         run: |
-          newman run GoRestApi.postman_collection.json -r html --reporter-html-template mytemplate.hbs > index.html
+          newman run GoRestApi.postman_collection.json -r htmlextra > index.html
       - name: Commit and push the changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
