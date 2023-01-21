@@ -26,7 +26,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Create dir
         run: |
-             mkdir Output
+             mkdir PostmanDemo/Output
 
       # Install node on the runner
       - name: Install Node
