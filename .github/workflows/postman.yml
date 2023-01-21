@@ -23,20 +23,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Install node on the runner
-      - name: Create Directory
-      - uses: actions/checkout@v3
-      - run: |
-             mkdir Artifacts
+    
+#       # Install node on the runner
+#       - name: Create Directory
+#       - uses: actions/checkout@v3
+#       - run: |
+#              mkdir Artifacts
              
       # Install node on the runner
-#       - name: Cache npm modules
-#         uses: actions/cache@v2
-#         with:
-#           path: ~/.npm
-#           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-npm-
+      - name: Cache npm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
             
       - name: Install Node
         uses: actions/setup-node@v3
