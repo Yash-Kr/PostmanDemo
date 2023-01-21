@@ -25,7 +25,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Create dir
-        uses: actions/checkout@v3
         run: |
              mkdir Output
 
