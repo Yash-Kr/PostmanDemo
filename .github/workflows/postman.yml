@@ -1,34 +1,21 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Automated API tests using newman CLI
-
-# Controls when the workflow will run
+name: Run Postman collection
 on: workflow_dispatch
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "test-api"
-  test-api:
-    # The type of runner that the job will run on
+  run-postman-collection:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-            
-      - name: Install Node
-        uses: actions/setup-node@v3
-      - name: Checkout the main branch
-        uses: actions/checkout@v2
-      - name: Install Newman and htmlextra
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
-      - name: Run Postman collection and generate HTML report
-        run: |
-          npx newman run myCollection.json --reporters cli,html-extra --reporter-html-extra-export index.html
-      - name: Commit and push the changes
-        uses: actions/push-action@v2
-        with:
-          push_token: ${{ secrets.PUSH_TOKEN }}
-          commit_message: Add newman report
-          
+    - name: Checkout the main branch
+      uses: actions/checkout@v2
+    - name: Install Node.js
+      run: |
+        echo "installing node"
+        curl -sL https://deb.nodesource.com/setup_14.x | bash -
+        apt-get install -y nodejs
+    - name: Install Newman
+      run: npm install newman
+    - name: Run Postman collection
+      run: npx newman run myCollection.json
+      env:
+        NEWMAN_LOG: verbose
+    - name: Log the output
+      run: echo "Newman run complete. Check the logs for details"
