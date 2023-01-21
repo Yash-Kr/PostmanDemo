@@ -7,14 +7,11 @@ jobs:
     - name: Checkout the main branch
       uses: actions/checkout@v2
     - name: Install Node.js
-      run: |
-        echo "installing node"
-        curl -sL https://deb.nodesource.com/setup_14.x | bash -
-        apt-get install -y nodejs
+      uses: actions/setup-node@v2
     - name: Install Newman
-      run: npm install newman
+      run: npm install -g newman
     - name: Run Postman collection
-      run: npx newman run myCollection.json
+      run: newman run myCollection.json
       env:
         NEWMAN_LOG: verbose
     - name: Log the output
