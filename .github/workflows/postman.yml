@@ -57,12 +57,12 @@ jobs:
                
       - name: Run Postman collection
         run: |
-            newman run "myCollection.json" -r htmlextra --reporter-htmlextra-export testArtifacts/output.html
+            newman run "myCollection.json" -r htmlextra --reporter-htmlextra-export Artifacts/output.html
       - name: Output the results
         uses: actions/upload-artifact@v3
         with:
           name: index.html
-          path: testArtifacts
+          path: Artifacts
           
           
 #          echo $(cat output.html)" >> index.html
