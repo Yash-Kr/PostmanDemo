@@ -44,13 +44,22 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Postman collection
         run: |
-          newman run "myCollection.json" -r htmlextra  --reporter-htmlextra-export output.html
-          echo $(cat output.html)" >> index.html
-      - name: Commit and push the changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+          newman run "myCollection.json" -r htmlextra  > index.html
+      - name: Upload the HTML file as an artifact
+        uses: actions/upload-artifact@v2
         with:
-          commit_message: Update index.html
-          push: true
+          name: index.html
+          path: index.html
+          
+          
+#          echo $(cat output.html)" >> index.html
+#       - name: Commit and push the changes
+#         uses: stefanzweifel/git-auto-commit-action@v4
+#         with:
+#           commit_message: Update index.html
+#           push: true
+          
+    
   
 #   update-file:
 #     runs-on: ubuntu-latest
