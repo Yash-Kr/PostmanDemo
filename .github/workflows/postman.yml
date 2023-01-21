@@ -49,6 +49,12 @@ jobs:
           npm install -g newman-reporter-htmlextra 
       - name: Checkout the main branch
         uses: actions/checkout@v2
+      
+      - uses: actions/checkout@v3
+      - name: Create Directory
+        run: |
+               mkdir Artifacts
+               
       - name: Run Postman collection
         run: |
             newman run "myCollection.json" -r htmlextra --reporter-htmlextra-export testArtifacts/output.html
