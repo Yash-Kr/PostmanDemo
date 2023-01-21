@@ -5,15 +5,6 @@ name: Automated API tests using newman CLI
 # Controls when the workflow will run
 on: workflow_dispatch
 
-#   # Triggers the workflow on push or pull request events but only for the "main" branch
-#   push:
-#     branches: [ "main" ]
-#   pull_request:
-#     branches: [ "main" ]
-
-#   # Allows you to run this workflow manually from the Actions tab
-#   workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "test-api"
@@ -23,70 +14,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-#       # Install node on the runner
-#       - name: Create Directory
-#       - uses: actions/checkout@v3
-#       - run: |
-#              mkdir Artifacts
-             
-      # Install node on the runner
-      - name: Cache npm modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
             
       - name: Install Node
         uses: actions/setup-node@v3
-      - name: Install newman
-        run: |
-          npm install -g newman
-      - name: Install newman-reporter-html
-        run: |
-          npm install -g newman-reporter-htmlextra 
       - name: Checkout the main branch
         uses: actions/checkout@v2
-      
-      - uses: actions/checkout@v3
-      - name: Create Directory
+      - name: Install Newman and htmlextra
         run: |
-               mkdir Artifacts
-               
-      - name: Run Postman collection
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+      - name: Run Postman collection and generate HTML report
         run: |
-            newman run "myCollection.json" -r htmlextra --reporter-htmlextra-export Artifacts/output.html
-      - name: Output the results
-        uses: actions/upload-artifact@v3
+          npx newman run myCollection.json --reporters cli,html-extra --reporter-html-extra-export index.html
+      - name: Commit and push the changes
+        uses: actions/push-action@v2
         with:
-          name: index.html
-          path: Artifacts
+          push_token: ${{ secrets.PUSH_TOKEN }}
+          commit_message: Add newman report
           
-          
-#          echo $(cat output.html)" >> index.html
-#       - name: Commit and push the changes
-#         uses: stefanzweifel/git-auto-commit-action@v4
-#         with:
-#           commit_message: Update index.html
-#           push: true
-          
-    
-  
-#   update-file:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout the main branch
-#       uses: actions/checkout@v2
-#     - name: Run Postman collection
-#       run: |
-#         newman run GoRestApi.postman_collection.json -r html --reporter-html-template mytemplate.hbs > index.html
-#     - name: Commit and push the changes
-#       uses: stefanzweifel/git-auto-commit-action@v4
-#       with:
-#         commit_message: Update index.html
-#         push: true ,,, 
-        
-        
-  
