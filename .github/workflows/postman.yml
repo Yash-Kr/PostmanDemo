@@ -44,7 +44,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Postman collection
         run: |
-          newman run myCollection.json -r htmlextra  --reporter-htmlextra-export index.html
+          newman run myCollection.json -r htmlextra  --reporter-htmlextra-export output.html
+          echo "$(cat output.html)" >> index.html
       - name: Commit and push the changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
