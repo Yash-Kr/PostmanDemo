@@ -12,7 +12,4 @@ jobs:
       run: npm install -g newman
     - name: Run Postman collection
       run: newman run myCollection.json
-      env:
-        NEWMAN_LOG: verbose
-    - name: Log the output
-      run: echo "Newman run complete. Check the logs for details"
+
