@@ -11,7 +11,7 @@ jobs:
     - name: Install Newman
       run: npm install -g newman newman-reporter-htmlextra
     - name: Run Postman collection
-      run: newman run myCollection.json -r htmlextra --reporter-htmlextra-export index.html || echo "Error Ocuured"
+      run: newman run myCollection.json -n 20 -r htmlextra --reporter-htmlextra-export index.html || echo "Error Ocuured"
     - name: Configure git user
       run: |
         git config user.email "yashk.ug19.cs@nitp.ac.in"
