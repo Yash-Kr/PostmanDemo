@@ -12,6 +12,8 @@ jobs:
       run: npm install -g newman newman-reporter-htmlextra
     - name: Run Postman collection
       run: newman run myCollection.json -r htmlextra --reporter-htmlextra-export report.html || echo "Error Ocuured"
+      env:
+       NEWMAN_LOG: debug
     - name: Commit and push the changes
       run: |
         git add report.html
